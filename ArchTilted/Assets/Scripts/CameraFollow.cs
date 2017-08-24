@@ -15,9 +15,13 @@ public class CameraFollow : MonoBehaviour {
 
 	private void LateUpdate () 
 	{
+		//We offset the position off the camera with a new vector3 
 		Vector3 desiredPosition = m_Target.position + m_Offset;
 
+		//We rotate the camera to always look at it's target.
 		transform.LookAt (m_Target);
+
+		//We smooth out the movement of the camera to avoid jitter.
 		transform.position = Vector3.SmoothDamp (transform.position, desiredPosition, ref m_Velocity, m_Smoothing);
 
 	}
