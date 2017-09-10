@@ -9,7 +9,22 @@ public class ColorChanger : MonoBehaviour
 
 	[Header("Gameplay Elements")]
 	public Color m_NewColor;
-	public GameObject m_ColorEffect;
+	public GameObject m_CenterRingS;
+	public GameObject m_CenterRingL;
+	public GameObject m_CenterColor;
+
+	private Material materialColored;
+
+	private void Start()
+	{
+		materialColored = new Material (Shader.Find ("Standard"));
+		materialColored.color = m_NewColor;
+
+		m_CenterRingS.GetComponent <Renderer> ().material = materialColored;
+		m_CenterRingL.GetComponent <Renderer>().material = materialColored;
+		m_CenterColor.GetComponent <Renderer> ().material = materialColored;
+
+	}
 
 
 	private void OnTriggerEnter()
@@ -17,11 +32,12 @@ public class ColorChanger : MonoBehaviour
 		// If the trigger comes into contact with the marble:
 		if (m_Marble.tag == "Player") 
 		{
-			//It gets it's color change to the corresponding one and the proper effect is played.
-			m_ColorEffect.GetComponent <Renderer>().sharedMaterial.color = m_NewColor;
-			Instantiate (m_ColorEffect, transform.position, Quaternion.Euler (90f, 0f, 0f));
-
-			m_Marble.GetComponent <Renderer>().material.color = m_NewColor;
+			ColorChange ();
 		}
+	}
+
+	private void ColorChange()
+	{
+		m_Marble.GetComponent <Renderer>().material.color = m_NewColor;
 	}
 }

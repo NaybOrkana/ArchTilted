@@ -21,8 +21,8 @@ public class TiltControl : MonoBehaviour
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
 		//We then move the rigidbody using the desired velocity and clamping it to the value of the input * the desired tilt.
-		GetComponent<Rigidbody> ().velocity = Vector3.SmoothDamp (GetComponent <Rigidbody> ().velocity, movement * m_Speed, ref m_Velocity, m_Smooth);
-		GetComponent<Rigidbody> ().rotation = Quaternion.Euler (GetComponent <Rigidbody>().velocity.z * m_Tilt, 0.0f, GetComponent<Rigidbody>().velocity.x * -m_Tilt);
+		Vector3 desiredVelocity = GetComponent<Rigidbody> ().velocity = Vector3.SmoothDamp (GetComponent <Rigidbody> ().velocity, movement * m_Speed, ref m_Velocity, m_Smooth);
+		GetComponent<Rigidbody> ().rotation = Quaternion.Euler (desiredVelocity.z * m_Tilt, 0.0f, desiredVelocity.x * -m_Tilt);
 	}
 
 }

@@ -7,6 +7,9 @@ public class BallCatapult : MonoBehaviour
 	[Header("Unity Requirements")]
 	public Rigidbody m_Ball;
 	public Transform m_Target;
+	public GameObject m_CenterRingS;
+	public GameObject m_CenterRingL;
+	public GameObject m_CenterColor;
 
 	[Header("Physics Values")]
 	public float m_Gravity = -9.81f;
@@ -15,6 +18,19 @@ public class BallCatapult : MonoBehaviour
 	[Header("Gameplay Elements")]
 	public Color m_ColorForLaunch;
 	public float m_DelayForLaunch = 1f;
+
+	private Material materialColored;
+
+	private void Start()
+	{
+		materialColored = new Material (Shader.Find ("Standard"));
+		materialColored.color = m_ColorForLaunch;
+
+		m_CenterRingS.GetComponent <Renderer> ().material = materialColored;
+		m_CenterRingL.GetComponent <Renderer>().material = materialColored;
+		m_CenterColor.GetComponent <Renderer> ().material = materialColored;
+	}
+
 
 	private void OnTriggerEnter()
 	{
